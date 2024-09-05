@@ -1,0 +1,56 @@
+<div class="card my-5">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <h3 class="mb-0">
+        {{ titulo }}
+      </h3>
+    </div>
+    <form [formGroup]="frm_UnidadMedida" (ngSubmit)="grabar()">
+      <div class="row">
+        <!-- Campo Detalle -->
+        <div class="form-group mb-3">
+          <label class="form-label" for="Detalle">Detalle</label>
+          <input formControlName="Detalle" type="text" class="form-control" id="Detalle" placeholder="Ingrese el Detalle" />
+          
+          <!-- Validación de Detalle -->
+          <div *ngIf="frm_UnidadMedida.get('Detalle').invalid && frm_UnidadMedida.get('Detalle').touched">
+            <div *ngIf="frm_UnidadMedida.get('Detalle').hasError('required')">
+              <small style="color: red">El detalle es requerido</small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Campo Tipo -->
+        <div class="form-group mb-3">
+          <label class="form-label" for="Tipo">Tipo</label>
+          <select class="form-control" formControlName="Tipo">
+            <option value="">Seleccione una opción</option>
+            <option value="0">Presentación</option>
+            <option value="1">Unidad de Medida</option>
+            <option value="2">Factor de Conversión</option>
+          </select>
+          
+          <!-- Validación de Tipo -->
+          <div *ngIf="frm_UnidadMedida.get('Tipo').invalid && frm_UnidadMedida.get('Tipo').touched">
+            <div *ngIf="frm_UnidadMedida.get('Tipo').hasError('required')">
+              <small style="color: red">El tipo es requerido</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de Grabar y Eliminar -->
+        <div class="d-grid mt-3">
+          <!-- Botón Grabar -->
+          <button type="submit" class="btn btn-primary" [disabled]="frm_UnidadMedida.invalid">
+            {{ idUnidadMedida === 0 ? 'Grabar' : 'Actualizar' }}
+          </button>
+
+          <!-- Botón Eliminar solo si es una actualización -->
+          <button *ngIf="idUnidadMedida > 0" type="button" class="btn btn-danger mt-2" (click)="eliminar()">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
