@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';  // Asegúrate de importar Commo
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, CommonModule],  // Agrega CommonModule aquí
   templateUrl: './nuevaunidadmedida.component.html',
-  styleUrl: './nuevaunidadmedida.component.scss'
+  styleUrls: ['./nuevaunidadmedida.component.scss']
 })
 export class NuevaunidadmedidaComponent implements OnInit {
   titulo = 'Nueva Unidad de Medida';
@@ -63,7 +63,8 @@ export class NuevaunidadmedidaComponent implements OnInit {
       });
     }
   }
- // Acción eliminar
+
+  // Acción eliminar
   eliminar() {
     if (this.idUnidadMedida > 0) {
       Swal.fire({
@@ -83,5 +84,10 @@ export class NuevaunidadmedidaComponent implements OnInit {
         }
       });
     }
+  }
+
+  // Método para manejar el cambio en el select
+  cambio(event: any): void {
+    this.frm_UnidadMedida.get('Tipo')?.setValue(event.target.value);
   }
 }
