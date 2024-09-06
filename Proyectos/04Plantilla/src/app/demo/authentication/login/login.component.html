@@ -13,20 +13,11 @@
           <form [formGroup]="frm_login" novalidate (submit)="login()">
             <div class="form-group mb-3">
               <label class="form-label" for="email">Email Address</label>
-              <!-- Asegúrate de que el "for" coincida con el "id" del input -->
-              <input formControlName="nombre_usuario" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email Address" />
+              <input id="email" type="email" formControlName="nombre_usuario" class="form-control" placeholder="Email Address" autocomplete="email" />
             </div>
             <div class="form-group mb-3">
               <label class="form-label" for="password">Password</label>
-              <!-- Asegúrate de que el "for" coincida con el "id" del input -->
-              <input type="password" class="form-control" id="password" autocomplete="current-password" placeholder="Password" formControlName="contrasenia" />
-            </div>
-            <div class="d-flex mt-1 justify-content-between">
-              <div class="form-check">
-                <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
-                <label class="form-check-label text-muted" for="customCheckc1">Keep me sign in</label>
-              </div>
-              <h5 class="text-secondary f-w-400"><a href="javascript:">Forgot Password?</a></h5>
+              <input id="password" type="password" formControlName="contrasenia" class="form-control" placeholder="Password" autocomplete="current-password" />
             </div>
             <div class="d-grid mt-4">
               <button type="submit" class="btn btn-primary">Login</button>
@@ -36,6 +27,8 @@
           <div class="saprator mt-3"></div>
           <div class="row">
             <label for="" style="color: red" [ngStyle]="{ visibility: mensajeerror ? 'visible' : 'hidden' }">{{ mensajeerror }}</label>
+            <!-- <label for="" style="color: red" [ngClass]="{ visible: mensajeerror, invisible: !mensajeerror }">{{ mensajeerror }}</label>
+            <label for="" style="color: red" [hidden]="!mensajeerror">{{ mensajeerror }}</label>-->
           </div>
         </div>
       </div>
@@ -57,5 +50,3 @@
     </div>
   </div>
 </div>
-
-

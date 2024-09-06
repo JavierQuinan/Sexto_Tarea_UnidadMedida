@@ -18,6 +18,10 @@ export class UnidadmedidaComponent implements OnInit {
   constructor(private unidadServicio: UnidadmedidaService, private router: Router) {}
 
   ngOnInit(): void {
+    this.cargarUnidades();
+  }
+
+  cargarUnidades() {
     this.unidadServicio.todos().subscribe((data) => {
       this.listaunidades = data;
     });
@@ -53,5 +57,12 @@ export class UnidadmedidaComponent implements OnInit {
       }
     });
   }
-}
 
+  // Método para actualizar una unidad en la lista después de la edición
+  actualizarUnidadActualizada(unidadActualizada: IUnidadMedida): void {
+    const index = this.listaunidades.findIndex(unidad => unidad.idUnidad_Medida === unidadActualizada.idUnidad_Medida);
+    if (index > -1) {
+      this.listaunidades[index] = unidadActualizada;
+    }
+  }
+}

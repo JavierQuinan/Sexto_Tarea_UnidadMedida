@@ -5,33 +5,49 @@ import { Iproveedor } from 'src/app/Interfaces/iproveedor';
 import { IUnidadMedida } from 'src/app/Interfaces/iunidadmedida';
 import { ProveedorService } from 'src/app/Services/proveedores.service';
 import { UnidadmedidaService } from 'src/app/Services/unidadmedida.service';
-import Swal from 'sweetalert2';
-import { IProducto } from 'src/app/Interfaces/iproducto'; // Asegúrate de que la interfaz esté bien definida
 import { ProductoService } from 'src/app/Services/productos.service';
+import { IProducto } from 'src/app/Interfaces/iproducto';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nuevoproducto',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './nuevoproducto.component.html',
-  styleUrls: ['./nuevoproducto.component.scss']
+  styleUrl: './nuevoproducto.component.scss'
 })
 export class NuevoproductoComponent implements OnInit {
   listaUnidadMedida: IUnidadMedida[] = [];
   listaProveedores: Iproveedor[] = [];
-  titulo = '';
+  titulo = 'Nuevo Producto';
   frm_Producto: FormGroup;
+  idProducto: number = 0;
 
   constructor(
-    private productoService: ProductoService,
+    private uniadaServicio: UnidadmedidaService,
     private fb: FormBuilder,
-    private unidadMedidaService: UnidadmedidaService, // Servicio para obtener las unidades de medida
-    private proveedorService: ProveedorService // Servicio para obtener los proveedores
+    private proveedoreServicio: ProveedorService,
+    private productoService: ProductoService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.uniadaServicio.todos().subscribe((data) => (this.listaUnidadMedida = data));
+    this.proveedoreServicio.todos().subscribe((data) => (this.listaProveedores = data));
+    
+    // Obtener ID del producto si existe
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.idProducto = parseInt(idParam);
+      this.titulo = 'Editar Producto';
+      this.productoService.uno(this.idProducto).subscribe((producto) => {
+        this.frm_Producto.patchValue(producto);
+      });
+    }
+    
     this.crearFormulario();
-    this.cargarDatosIniciales();
   }
 
   crearFormulario() {
@@ -48,38 +64,22 @@ export class NuevoproductoComponent implements OnInit {
     });
   }
 
-  cargarDatosIniciales() {
-    // Cargar las unidades de medida
-    this.unidadMedidaService.todos().subscribe((data: IUnidadMedida[]) => {
-      this.listaUnidadMedida = data;
-    });
-
-    // Cargar los proveedores
-    this.proveedorService.todos().subscribe((data: Iproveedor[]) => {
-      this.listaProveedores = data;
-    });
-  }
-
   grabar() {
-    let producto: IProducto = this.frm_Producto.value; // Obtener los datos del formulario
+    const producto: IProducto = this.frm_Producto.value;
 
-    // Comprobar si es una inserción o actualización
-    if (!producto.idProductos) {
-      // Inserción
+    if (this.idProducto === 0) {
+      // Insertar nuevo producto
       this.productoService.insertar(producto).subscribe(() => {
-        Swal.fire('Éxito', 'Producto guardado con éxito', 'success');
-        this.resetFormulario();
+        Swal.fire('Éxito', 'Producto creado con éxito', 'success');
+        this.router.navigate(['/productos']);
       });
     } else {
-      // Actualización
+      // Actualizar producto existente
+      producto.idProductos = this.idProducto;
       this.productoService.actualizar(producto).subscribe(() => {
         Swal.fire('Éxito', 'Producto actualizado con éxito', 'success');
-        this.resetFormulario();
+        this.router.navigate(['/productos']);
       });
     }
-  }
-
-  resetFormulario() {
-    this.frm_Producto.reset();
   }
 }

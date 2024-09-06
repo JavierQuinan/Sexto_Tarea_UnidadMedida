@@ -4,12 +4,12 @@ import { IUnidadMedida } from 'src/app/Interfaces/iunidadmedida';
 import { UnidadmedidaService } from '../../Services/unidadmedida.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { CommonModule } from '@angular/common';  // Asegúrate de importar CommonModule
+import { CommonModule } from '@angular/common';  
 
 @Component({
   selector: 'app-nuevaunidadmedida',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],  // Agrega CommonModule aquí
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],  
   templateUrl: './nuevaunidadmedida.component.html',
   styleUrls: ['./nuevaunidadmedida.component.scss']
 })
