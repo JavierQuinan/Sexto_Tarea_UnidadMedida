@@ -12,23 +12,30 @@
           </div>
           <form [formGroup]="frm_login" novalidate (submit)="login()">
             <div class="form-group mb-3">
+              <!-- Asegúrate de que el 'for' y el 'id' coincidan -->
               <label class="form-label" for="email">Email Address</label>
-              <input id="email" type="email" formControlName="nombre_usuario" class="form-control" placeholder="Email Address" autocomplete="email" />
+              <input formControlName="nombre_usuario" type="email" class="form-control" id="email" autocomplete="email" placeholder="Email Address" />
             </div>
             <div class="form-group mb-3">
+              <!-- Asegúrate de que el 'for' y el 'id' coincidan -->
               <label class="form-label" for="password">Password</label>
-              <input id="password" type="password" formControlName="contrasenia" class="form-control" placeholder="Password" autocomplete="current-password" />
+              <input type="password" class="form-control" id="password" autocomplete="current-password" placeholder="Password" formControlName="contrasenia" />
+            </div>
+            <div class="d-flex mt-1 justify-content-between">
+              <div class="form-check">
+                <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
+                <label class="form-check-label text-muted" for="customCheckc1">Keep me sign in</label>
+              </div>
+              <h5 class="text-secondary f-w-400"><a href="javascript:">Forgot Password?</a></h5>
             </div>
             <div class="d-grid mt-4">
               <button type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
 
-          <div class="saprator mt-3"></div>
+          <div class="separator mt-3"></div>
           <div class="row">
-            <label for="" style="color: red" [ngStyle]="{ visibility: mensajeerror ? 'visible' : 'hidden' }">{{ mensajeerror }}</label>
-            <!-- <label for="" style="color: red" [ngClass]="{ visible: mensajeerror, invisible: !mensajeerror }">{{ mensajeerror }}</label>
-            <label for="" style="color: red" [hidden]="!mensajeerror">{{ mensajeerror }}</label>-->
+            <label for="error-message" style="color: red" [ngStyle]="{ visibility: mensajeerror ? 'visible' : 'hidden' }">{{ mensajeerror }}</label>
           </div>
         </div>
       </div>
