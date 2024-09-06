@@ -1,4 +1,3 @@
-// angular import
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -109,6 +108,7 @@ const routes: Routes = [
         loadComponent: () => import('./productos/nuevoproducto/nuevoproducto.component').then((m) => m.NuevoproductoComponent),
         canActivate: [usuariosGuardGuard]
       }
+     
     ]
   },
   {

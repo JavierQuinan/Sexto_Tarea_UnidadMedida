@@ -7,6 +7,9 @@ import { Iproveedor } from '../Interfaces/iproveedor';
   providedIn: 'root'
 })
 export class ProveedorService {
+  obtenerTodos() {
+    throw new Error('Method not implemented.');
+  }
   apiurl = 'http://localhost/sexto/Proyectos/03MVC/controllers/proveedores.controller.php?op=';
 
   constructor(private lector: HttpClient) {}

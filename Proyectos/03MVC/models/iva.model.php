@@ -1,83 +1,26 @@
 <?php
-// TODO: Clase de IVA Tienda Cel@g
+// Incluir la configuración de la base de datos
 require_once('../config/config.php');
 
-class IvaModel
+class IVA
 {
-    public function todos() // select * from iva
+    // Función para obtener todos los valores de IVA
+    public function todos() 
     {
         $con = new ClaseConectar();
         $con = $con->ProcedimientoParaConectar();
-        $cadena = "SELECT * FROM `iva`";
-        $datos = mysqli_query($con, $cadena);
+
+        // Consulta SQL para obtener los detalles del IVA
+        $query = "SELECT idIVA, Detalle, Estado, Valor FROM iva WHERE 1";
+        
+        // Ejecutar la consulta y almacenar el resultado
+        $result = mysqli_query($con, $query);
+
+        // Cerrar la conexión a la base de datos
         $con->close();
-        return $datos;
-    }
 
-    public function uno($idIva) // select * from iva where id = $idIva
-    {
-        $con = new ClaseConectar();
-        $con = $con->ProcedimientoParaConectar();
-        $cadena = "SELECT * FROM `iva` WHERE `idIva` = $idIva";
-        $datos = mysqli_query($con, $cadena);
-        $con->close();
-        return $datos;
-    }
-
-    public function insertar($valor) // insert into iva (valor) values (...)
-    {
-        try {
-            $con = new ClaseConectar();
-            $con = $con->ProcedimientoParaConectar();
-            $cadena = "INSERT INTO `iva`(`valor`) 
-                       VALUES ('$valor')";
-            if (mysqli_query($con, $cadena)) {
-                return $con->insert_id; // Return the inserted ID
-            } else {
-                return $con->error;
-            }
-        } catch (Exception $th) {
-            return $th->getMessage();
-        } finally {
-            $con->close();
-        }
-    }
-
-    public function actualizar($idIva, $valor) // update iva set ... where id = $idIva
-    {
-        try {
-            $con = new ClaseConectar();
-            $con = $con->ProcedimientoParaConectar();
-            $cadena = "UPDATE `iva` SET 
-                       `valor`='$valor'
-                       WHERE `idIva` = $idIva";
-            if (mysqli_query($con, $cadena)) {
-                return $idIva; // Return the updated ID
-            } else {
-                return $con->error;
-            }
-        } catch (Exception $th) {
-            return $th->getMessage();
-        } finally {
-            $con->close();
-        }
-    }
-
-    public function eliminar($idIva) // delete from iva where id = $idIva
-    {
-        try {
-            $con = new ClaseConectar();
-            $con = $con->ProcedimientoParaConectar();
-            $cadena = "DELETE FROM `iva` WHERE `idIva`= $idIva";
-            if (mysqli_query($con, $cadena)) {
-                return 1; // Success
-            } else {
-                return $con->error;
-            }
-        } catch (Exception $th) {
-            return $th->getMessage();
-        } finally {
-            $con->close();
-        }
+        // Devolver el resultado de la consulta
+        return $result;
     }
 }
+?>

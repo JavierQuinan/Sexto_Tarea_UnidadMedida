@@ -48,7 +48,7 @@ export class ProductoService {
   }
 
   // Método para actualizar un producto
-  actualizar(producto: IProducto): Observable<string> {
+  actualizar(idProducto: number, producto: IProducto): Observable<string> {
     const formData = new FormData();
     formData.append('idProductos', producto.idProductos.toString());
     formData.append('Codigo_Barras', producto.Codigo_Barras);

@@ -10,9 +10,9 @@ if ($method == "OPTIONS") {
 }
 
 // Controlador de IVA - Solo para seleccionar todos los registros
-require_once('../models/iva.model.php');
-
-$iva = new IvaModel();
+require_once('..00/models/iva.model.php');
+error_reporting(0);
+$iva = new IVA();
 
 switch ($_GET["op"]) {
     case "todos":  // Procedimiento para cargar todos los IVA disponibles
